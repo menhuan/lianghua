@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  coin:
+    image: krccr.ccs.tencentyun.com/coin/coin:v1
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+
+  influxdb:
+    image: influxdb
+    container_name: influxdb
+    ports:
+      - 8086:8086
+    volumes:
+      - /var/lib/influxdb:/var/lib/influxdb
+    env_file:
+      - .env
+
+  redis:
+    image: redis:6.0.9
+    ports:
+      - "6379:6379"
